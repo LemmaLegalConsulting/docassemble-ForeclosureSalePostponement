@@ -36,3 +36,7 @@ Use the verified matching LawHelpMN resource, [Your Rights in Foreclosure](https
 Use one mandatory controller and recompute the 15-calendar-day cutoff when the sale date changes. Do not silently extend that filing cutoff to the next business day: the statutory next-business-day language governs the postponed sale, and any filing extension needs separate review. Avoid estimating a new sale date without an approved holiday/calendar rule. Display a specific help screen instead of redirecting or deleting the session. Allow preparation only for the currently implemented living-owner, post-April-21-2026 proceeding route. Older proceedings and representatives receive a clear help path.
 
 Keep notary and owner execution fields blank; do not solicit a purported electronic notary signature. Require an explicit choice about the five-week redemption period. Remove stale fee claims and unrelated signature fields. Chapter 88 section 219 adds foreclosure-by-action references to the preexisting text; its interaction with chapter 51 is reserved for substantive review, rather than silently selecting an older consolidated version. Local happy-path testing reached downloads; one/two/four-owner template tests pass. Comprehensive edge-case tests are in progress.
+
+## Execution venue
+
+Leave both state and county of notarization blank for the actual signing. The property county is automated separately. Do not assume an affidavit concerning Minnesota property is necessarily signed in Minnesota.
