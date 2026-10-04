@@ -1,194 +1,42 @@
 {
-  "scope": "Static template labels and attachment mapping; no end-to-end interview certification",
-  "method": "ALDashboard get_docx_run_items/update_docx/validate_docx_template_syntax; pikepdf logical-field inspection",
+  "review_date": "2026-10-04",
+  "method": "Read DOCX body/table/header/footer XML; parse docxtpl variables; compare all PDF logical fields to YAML mappings and check tooltips.",
   "templates": [
     {
-      "file": "foreclosure_sale_postponement_next_steps.docx",
-      "type": "docx",
-      "expressions": [
-        "other_parties",
-        "users"
+      "file": "foreclosure_sale_postponement.docx",
+      "variables": [
+        "county",
+        "drafter",
+        "owner",
+        "sale_date"
       ],
-      "new_labels": [],
-      "syntax": {
-        "valid": true,
-        "errors": [],
-        "warnings": [],
-        "error_count": 0,
-        "warning_count": 0
-      },
-      "manual_completion": null
+      "jinja_labels": [
+        "owner",
+        "county",
+        "sale_date.format()",
+        "person",
+        "owner",
+        "drafter[0]",
+        "drafter[0].address.block()"
+      ],
+      "conditional_and_loop_tags": [
+        "p for person in owner",
+        "p endfor"
+      ],
+      "manual_execution_fields": "Signatures, initials, signing dates and notarial/witness attestations remain blank where applicable."
     },
     {
-      "file": "foreclosure_sale_postponement.pdf",
-      "type": "pdf",
-      "logical_fields": [
-        {
-          "name": "signed_sworn",
-          "label": "Date signed and sworn",
-          "expression": "${ signed_sworn }",
-          "widget_count": 1
-        },
-        {
-          "name": "signature_notarial_officer",
-          "label": "Notarial officer signature",
-          "expression": "${ signature_notarial_officer if i == \"final\" else '' }",
-          "widget_count": 1
-        },
-        {
-          "name": "commission_expires",
-          "label": "Notary commission expiration date",
-          "expression": "${ commission_expires }",
-          "widget_count": 1
-        },
-        {
-          "name": "notary_county",
-          "label": "County where affidavit is sworn",
-          "expression": "${ notary_county }",
-          "widget_count": 1
-        },
-        {
-          "name": "users1_signature__1",
-          "label": "First owner signature",
-          "expression": "${ users[0].signature_if_final(i) }",
-          "widget_count": 1
-        },
-        {
-          "name": "users1_signature__2",
-          "label": "Second owner signature",
-          "expression": "${ users[0].signature_if_final(i) }",
-          "widget_count": 1
-        },
-        {
-          "name": "he_is_she_is_they_are",
-          "label": "Owner subject and verb (for example, they are)",
-          "expression": "${ he_is_she_is_they_are }",
-          "widget_count": 1
-        },
-        {
-          "name": "owner_name__1",
-          "label": "Property owner name",
-          "expression": "${ owner[0] }",
-          "widget_count": 3
-        },
-        {
-          "name": "owner_poss",
-          "label": "Owner possessive pronoun",
-          "expression": "${ owner_poss }",
-          "widget_count": 1
-        },
-        {
-          "name": "owner_name__2",
-          "label": "Owner acknowledging the affidavit",
-          "expression": "${ owner[0] }",
-          "widget_count": 1
-        },
-        {
-          "name": "drafter_name",
-          "label": "Document drafter name",
-          "expression": "${ drafter[0] }",
-          "widget_count": 1
-        },
-        {
-          "name": "drafter_address_street__1",
-          "label": "Document drafter street address, first line",
-          "expression": "${ drafter[0].address.address }",
-          "widget_count": 1
-        },
-        {
-          "name": "drafter_address_street__2",
-          "label": "Document drafter street address, second line",
-          "expression": "${ drafter[0].address.address }",
-          "widget_count": 1
-        },
-        {
-          "name": "drafter_address_city",
-          "label": "Document drafter city",
-          "expression": "${ drafter[0].address.city }",
-          "widget_count": 1
-        },
-        {
-          "name": "drafter_address_state",
-          "label": "Document drafter state",
-          "expression": "${ drafter[0].address.state }",
-          "widget_count": 1
-        },
-        {
-          "name": "drafter_address_zip",
-          "label": "Document drafter ZIP code",
-          "expression": "${ drafter[0].address.zip }",
-          "widget_count": 1
-        },
-        {
-          "name": "deadline_date",
-          "label": "Filing deadline (past-deadline notice)",
-          "expression": "${ deadline_date.format() }",
-          "widget_count": 1
-        },
-        {
-          "name": "else_deadline_date",
-          "label": "Filing deadline",
-          "expression": "${ else_deadline_date.format() }",
-          "widget_count": 1
-        },
-        {
-          "name": "sale_date",
-          "label": "Scheduled foreclosure sale date",
-          "expression": "${ sale_date.format() }",
-          "widget_count": 1
-        },
-        {
-          "name": "deadline_date_actual",
-          "label": "Deadline falling on a possible office holiday",
-          "expression": "${ deadline_date_actual }",
-          "widget_count": 1
-        },
-        {
-          "name": "deadline_date_possible",
-          "label": "Alternative deadline to confirm with recorder",
-          "expression": "${ deadline_date_possible }",
-          "widget_count": 1
-        },
-        {
-          "name": "county",
-          "label": "County where property is located",
-          "expression": "${ county }",
-          "widget_count": 1
-        },
-        {
-          "name": "recorder_registrar_address",
-          "label": "County recorder or registrar: address",
-          "expression": "${ recorder_registrar_address }",
-          "widget_count": 1
-        },
-        {
-          "name": "sheriff_county",
-          "label": "Sheriff: county",
-          "expression": "${ sheriff_county }",
-          "widget_count": 1
-        },
-        {
-          "name": "recorder_county",
-          "label": "County recorder or registrar: county",
-          "expression": "${ recorder_county }",
-          "widget_count": 1
-        },
-        {
-          "name": "sheriff_address",
-          "label": "Sheriff: address",
-          "expression": "${ sheriff_address }",
-          "widget_count": 1
-        },
-        {
-          "name": "torrens",
-          "label": "Property is registered (Torrens)",
-          "expression": "${ torrens }",
-          "widget_count": 1
-        }
+      "file": "foreclosure_sale_postponement_next_steps.docx",
+      "variables": [
+        "filing_cutoff",
+        "sale_date"
       ],
-      "all_fields_mapped": true,
-      "all_fields_named": true,
-      "all_fields_have_tooltips": true
+      "jinja_labels": [
+        "sale_date.format()",
+        "filing_cutoff.format()"
+      ],
+      "conditional_and_loop_tags": [],
+      "manual_execution_fields": "Signatures, initials, signing dates and notarial/witness attestations remain blank where applicable."
     }
   ]
 }

@@ -1,19 +1,18 @@
 [
   {
+    "template": "foreclosure_sale_postponement.docx",
+    "status": "pass",
+    "strict_jinja_render": "pass",
+    "libreoffice_pdf_render": "pass",
+    "new_content_labels_found_in_pdf": 0,
+    "pdf_pages": 2
+  },
+  {
     "template": "foreclosure_sale_postponement_next_steps.docx",
     "status": "pass",
     "strict_jinja_render": "pass",
     "libreoffice_pdf_render": "pass",
     "new_content_labels_found_in_pdf": 0,
-    "pdf_pages": 1
-  },
-  {
-    "template": "foreclosure_sale_postponement.pdf",
-    "status": "pass",
-    "logical_fields": 27,
-    "all_pdf_fields_match_yaml": true,
-    "unfilled_page_rasters_identical_to_upstream": true,
-    "synthetic_text_field_fill": "pass",
-    "child_2_and_3_distinct_rendered_values": null
+    "pdf_pages": 2
   }
 ]
