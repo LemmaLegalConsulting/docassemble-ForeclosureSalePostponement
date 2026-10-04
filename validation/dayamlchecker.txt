@@ -1,0 +1,28 @@
+Checker source: SuffolkLITLab/DAYamlChecker@5676a949ebca269325eb0d8bf0abad52eda4aa61 (source version 1.7.0)
+Command: dayamlchecker .
+Exit code: 0
+
+Found 8 issues (0 errors, 7 warnings, 1 infos):
+WARN  [WA514] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:134
+  choice label in Gender may be too vague: Other
+
+WARN  [WA514] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:145
+  choice label in Is the property a homestead? may be too vague: Yes
+
+WARN  [WA514] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:145
+  choice label in Is the property a homestead? may be too vague: No
+
+WARN  [WA515] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:216
+  multiple fields on this screen share the same label text: County, County
+
+WARN  [WA515] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:260
+  multiple fields on this screen share the same label text: County, County
+
+WARN  [WA554] docassemble/ForeclosureSalePostponement/data/templates/foreclosure_sale_postponement_next_steps.docx
+  a text box in word/footer1.xml may be read out of order (near "Find out more about what to do : Find out more about what to do :")
+
+WARN  [WA557] docassemble/ForeclosureSalePostponement/data/templates/foreclosure_sale_postponement_next_steps.docx
+  heading structure starts at level 2 instead of level 1
+
+INFO  [IA565] docassemble/ForeclosureSalePostponement/data/templates/foreclosure_sale_postponement_next_steps.docx
+  22 empty paragraphs are used for spacing, the longest run being 7 (longest run is near "Read the response as soon as you get it. If you have questions, [ Your local…")

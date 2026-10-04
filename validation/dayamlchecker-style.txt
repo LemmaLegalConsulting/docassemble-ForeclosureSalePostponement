@@ -1,0 +1,79 @@
+Checker source: SuffolkLITLab/DAYamlChecker@5676a949ebca269325eb0d8bf0abad52eda4aa61 (source version 1.7.0)
+Command: dayamlchecker --style .
+Exit code: 0
+
+Found 25 issues (0 errors, 15 warnings, 10 infos):
+WARN  [WA514] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:134
+  choice label in Gender may be too vague: Other
+
+WARN  [WA514] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:145
+  choice label in Is the property a homestead? may be too vague: Yes
+
+WARN  [WA514] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:145
+  choice label in Is the property a homestead? may be too vague: No
+
+WARN  [WA515] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:216
+  multiple fields on this screen share the same label text: County, County
+
+WARN  [WA515] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:260
+  multiple fields on this screen share the same label text: County, County
+
+WARN  [WT701] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:134
+  field choices includes labels without explicit invariant values; translated labels should not be stored as answers: ['Male', 'Female', 'Other']
+
+WARN  [WT701] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:145
+  field choices includes labels without explicit invariant values; translated labels should not be stored as answers: ['Yes', 'No']
+
+WARN  [WT702] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:68
+  move user-facing text out of `code:` blocks and into a translatable template: Postpone Foreclosure Sale
+
+INFO  [IS712] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:127
+  consider replacing 'please' in question with simpler language, such as '(omit)'
+
+INFO  [IS712] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:127
+  consider replacing 'select' in question with simpler language, such as 'choose'
+
+INFO  [IS712] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:142
+  consider replacing 'eligible' in question with simpler language, such as 'allowed, qualified'
+
+INFO  [IS712] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:145
+  consider replacing 'dwelling' in fields[0].help with simpler language, such as 'home'
+
+INFO  [IS712] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:164
+  consider replacing 'determine' in question with simpler language, such as 'decide, work out, set, end, figure, find'
+
+INFO  [IS712] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:166
+  consider replacing 'forward' in subquestion with simpler language, such as 'send, forward'
+
+INFO  [IS712] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:231
+  consider replacing 'complete' in subquestion with simpler language, such as 'fill in, finish'
+
+WARN  [WT705] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:231
+  write out "don't" as 'do not' in subquestion to avoid misinterpretation by non-native readers or translation tools
+
+WARN  [WS714] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:145
+  sentence in fields[0].help exceeds 20 words: According to Minnesota law, a homestead is any property that: (1) is the owner's primary home, and (2) is made of 1-4 living units (i .
+
+WARN  [WS714] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:169
+  sentence in fields[0].help exceeds 20 words: The date of the sale is somewhere in the "Notice of Mortgage Foreclosure Sale" you got from the bank (or the bank's attorney) .
+
+WARN  [WS714] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:194
+  sentence in subquestion exceeds 20 words: For more information about foreclosure postponement and foreclosure prevention resources available in Minnesota, visit the MN Home Ownership Center’s website .
+
+INFO  [IS730] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:218
+  heading or label appears to use title case; prefer sentence case: Recorder Registrar Address
+
+WARN  [WS735] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:134
+  gender choices should avoid "Other"; use an inclusive self-described option: Gender
+
+INFO  [IS720] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:257
+  complex screen has no help, hint, or note text: County, He is/ she is /they are, County, Owner, Torrens
+
+WARN  [WA554] docassemble/ForeclosureSalePostponement/data/templates/foreclosure_sale_postponement_next_steps.docx
+  a text box in word/footer1.xml may be read out of order (near "Find out more about what to do : Find out more about what to do :")
+
+WARN  [WA557] docassemble/ForeclosureSalePostponement/data/templates/foreclosure_sale_postponement_next_steps.docx
+  heading structure starts at level 2 instead of level 1
+
+INFO  [IA565] docassemble/ForeclosureSalePostponement/data/templates/foreclosure_sale_postponement_next_steps.docx
+  22 empty paragraphs are used for spacing, the longest run being 7 (longest run is near "Read the response as soon as you get it. If you have questions, [ Your local…")

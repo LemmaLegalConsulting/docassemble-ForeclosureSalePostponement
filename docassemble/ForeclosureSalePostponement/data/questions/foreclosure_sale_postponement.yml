@@ -34,7 +34,6 @@ metadata:
   authors:
     - Minnesota Courts
 ---
-mandatory: True
 comment: |
   Global interview metadata
 variable name: interview_metadata["foreclosure_sale_postponement"]
@@ -87,6 +86,7 @@ comment: |
   Delete mandatory: True to include in another interview
 mandatory: True
 code: |
+  interview_metadata["foreclosure_sale_postponement"]
   al_intro_screen
   getting_started
   if eligibility_for_postponement == 'Yes':
@@ -391,6 +391,7 @@ review:
       **Commission expires**:
       ${ commission_expires }
 ---
+id: edit owner
 continue button field: owner.revisit
 question: |
   Edit owner
@@ -408,6 +409,7 @@ edit:
   - name.first
 confirm: True
 ---
+id: edit drafter
 continue button field: drafter.revisit
 question: |
   Edit drafter
@@ -428,6 +430,7 @@ edit:
   - address.zip
 confirm: True
 ---
+id: edit users
 continue button field: users.revisit
 question: |
   Edit users
@@ -497,8 +500,6 @@ attachment:
       - "deadline_date_actual": ${ deadline_date_actual }
       - "deadline_date_possible": ${ deadline_date_possible }
       - "notary_county": ${ notary_county }
-      - "owner_name__1": ${ owner[0] }
-      - "owner_name__1": ${ owner[0] }
       - "owner_name__1": ${ owner[0] }
       - "owner_name__2": ${ owner[0] }
       - "he_is_she_is_they_are": ${ he_is_she_is_they_are }
