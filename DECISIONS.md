@@ -40,3 +40,7 @@ Keep notary and owner execution fields blank; do not solicit a purported electro
 ## Execution venue
 
 Leave both state and county of notarization blank for the actual signing. The property county is automated separately. Do not assume an affidavit concerning Minnesota property is necessarily signed in Minnesota.
+
+## Testing approach
+
+Use narrative ALKiln story tables plus assertions against downloaded PDF text. Include negative paths, recording-date/deadline boundaries, optional people, long text, and review edits. Save raw artifacts locally and commit only a sanitized execution summary. Keep synthetic unit/template checks in CI. Distinguish failures in test-tool compatibility from actual interview defects; document both, and never turn a failed expectation into a pass without explaining the change.
