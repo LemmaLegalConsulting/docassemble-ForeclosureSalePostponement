@@ -8,7 +8,7 @@ Reviewed 2026-10-04. Static source/template review only. Deadline defects below 
 2. **Restore a complete executable interview order.** The mandatory block references `interview_order_foreclosure_sale_postponement` without a local definition. `else_deadline_date`, `deadline_date_actual`, and `deadline_date_possible` are referenced in review/output without local definitions. Define the required collection and output values; remove obsolete paths after agreeing the intended workflow.
 3. **Make eligibility and prior-postponement branches work.** The ineligible screen has no event/continue target, while the main order exits directly. `previous_postponement` is asked without a subsequent eligibility decision. Use explicit answers and readable stop screens with client-approved referrals. Verify the types of the unquoted Yes/No choices and their string comparisons on Docassemble.
 4. **Repair and verify document output.** Audit every PDF field against the final data model. The setup pass repaired the next-steps DOCX’s `{_{ ... }}` delimiters, added PDF tooltips, and removed duplicate YAML mappings for the shared owner field. Replace “XYZ” and the unfinished instruction text. The PDF itself prints both late and timely deadline notices and a possible-holiday notice unconditionally; blanking fields does not hide those contradictory paragraphs. Decide whether to replace its instruction pages with a conditional DOCX. The on-screen instructions also refer to Word editing although the main form is a PDF, and office addresses are not interpolated into the shown instructions. Obtain current client-approved filing/delivery instructions and fees.
-5. **Supply or replace the missing logo asset.** `al_logo` references `MNfavicon-96x96.png`; the package's static directory contains only a README.
+5. **Verify branding on the target server.** Restored the referenced `MNfavicon-96x96.png` from Amanda’s HCD package; confirm its appearance in the deployed theme.
 
 ## P1 — functional and document QA
 
@@ -27,4 +27,3 @@ Reviewed 2026-10-04. Static source/template review only. Deadline defects below 
 - Client-approved weekend/holiday and boundary-date fixtures, including edits after calculation.
 - Distinct owner/drafter identities; complete address and document fields; downloadable form and approved instructions.
 
-Planning range: **10–16 hours**, including deadline tests; conditional on timely approval of the legal rules and expected results.
