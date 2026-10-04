@@ -22,3 +22,17 @@ Preserve wet signatures, initials, execution dates, and witness/notary attestati
 ## Restore the LawHelpMN asset
 
 Reuse the same `MNfavicon-96x96.png` already supplied in Amanda’s Health Care Directive package. Both interviews referenced that exact filename but omitted it. This restores the existing intended branding without introducing a new logo or changing the interview’s theme.
+
+## Replace the 2011 affidavit with the 2026 statutory form
+
+Use an editable DOCX adaptation because the currently linked blank remains the 2011 revision. Keep the legal statements close to chapter 51, section 2; apply plain-language style to interview questions and instructions, not by silently rewriting sworn declarations. Separate the affidavit from instructions so contradictory deadline text is never printed in the form. Details and applicability questions are in `FORM_SOURCES.md`.
+
+## Consistent help links — 2026-10-04
+
+Use the verified matching LawHelpMN resource, [Your Rights in Foreclosure](https://www.lawhelpmn.org/self-help-library/fact-sheet/your-rights-foreclosure), in publishing metadata, the introduction, the download screen, and printable next steps. Keep direct court/statutory sources for form requirements. Name Change’s matching resource is a court-forms directory, not an Education for Justice fact sheet. No claim of LHI feature parity is made.
+
+## Replace contradictory deadline and signature flow
+
+Use one mandatory controller and recompute the 15-calendar-day cutoff when the sale date changes. Do not silently extend that filing cutoff to the next business day: the statutory next-business-day language governs the postponed sale, and any filing extension needs separate review. Avoid estimating a new sale date without an approved holiday/calendar rule. Display a specific help screen instead of redirecting or deleting the session. Allow preparation only for the currently implemented living-owner, post-April-21-2026 proceeding route. Older proceedings and representatives receive a clear help path.
+
+Keep notary and owner execution fields blank; do not solicit a purported electronic notary signature. Require an explicit choice about the five-week redemption period. Remove stale fee claims and unrelated signature fields. Chapter 88 section 219 adds foreclosure-by-action references to the preexisting text; its interaction with chapter 51 is reserved for substantive review, rather than silently selecting an older consolidated version. Local happy-path testing reached downloads; one/two/four-owner template tests pass. Comprehensive edge-case tests are in progress.
