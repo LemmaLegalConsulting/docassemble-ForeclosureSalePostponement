@@ -13,7 +13,7 @@ The replacement `foreclosure_sale_postponement.docx` is a **Lemma adaptation of 
 - [LawHelpMN Your Rights in Foreclosure, updated September 2026](https://www.lawhelpmn.org/self-help-library/fact-sheet/your-rights-foreclosure).
 - [Blank linked from that fact sheet](https://www.lawhelpmn.org/sites/default/files/2026-09/60.8.1AffidavitofPostponement_0.pdf), saved as `data/sources/lawhelpmn-september-2026-affidavit.pdf`. Its printed date is 2011.
 
-The old automated PDF remains under `data/sources/legacy/` for comparison and is no longer an output template.
+The old automated PDF remains under `reference/legacy/` for comparison and is no longer an output template.
 
 ## Decisions still requiring substantive review
 
