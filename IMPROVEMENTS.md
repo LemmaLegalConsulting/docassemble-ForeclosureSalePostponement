@@ -10,7 +10,7 @@ Replaced the obsolete output PDF with a labeled 2026 statutory DOCX, separated i
 
 1. **P0 — Approve the replacement statutory affidavit.** Review the Lemma adaptation of the 2026 affidavit, its recording layout, signatures, and combined effect of chapters 51 and 88. The linked Commerce-style blank still prints 2011; this is not represented as a newly issued numbered UCB form. See FORM_SOURCES.md.
 
-2. **P0 — Approve deadline and delivery instructions.** The code subtracts 15 calendar days and does not automatically extend the filing cutoff for weekends or holidays. Confirm legal counting, office closures, publication/postponement notices, recording in every applicable office, and delivery requirements. The interview intentionally does not calculate the postponed sale date yet.
+2. **P0 — Approve deadline and delivery instructions.** The code subtracts 15 calendar days and uses ALToolbox’s Minnesota calendar to recommend the last business day on or before that cutoff. It does not extend the legal filing cutoff for weekends or holidays. Confirm legal counting, office closures, publication/postponement notices, recording in every applicable office, and delivery requirements. The interview intentionally does not calculate the postponed sale date yet.
 
 3. **P1 — Support earlier proceedings and representatives.** Proceedings with pre-April-22-2026 recording dates, estates, and heirs currently receive useful help screens. Decide the additional supported workflows and forms. An unknown recording date also needs a more helpful supported path.
 

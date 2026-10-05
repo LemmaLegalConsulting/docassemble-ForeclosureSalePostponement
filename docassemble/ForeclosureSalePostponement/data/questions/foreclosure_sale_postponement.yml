@@ -2,6 +2,9 @@
 include:
 - docassemble.AssemblyLine:assembly_line.yml
 ---
+modules:
+- docassemble.ALToolbox.business_days
+---
 metadata:
   title: Postpone a foreclosure sale
   short title: Foreclosure postponement
@@ -50,6 +53,9 @@ code: |
   sale_date
   # Recompute on each review cycle, rather than caching dependent answers.
   filing_cutoff = sale_date.minus(days=15)
+  filing_business_day = filing_cutoff
+  while not is_business_day(filing_business_day, country="US", subdiv="MN"):
+    filing_business_day = filing_business_day.minus(days=1)
   if today() > filing_cutoff:
     deadline_help
   deadline_notice
@@ -328,7 +334,7 @@ fields:
 id: filing cutoff notice
 continue button field: deadline_notice
 question: |
-  Finish the filing steps by ${ filing_cutoff.format() }
+  Plan to finish the filing steps by ${ filing_business_day.format() }
 subquestion: |
   Your sale is on ${ sale_date.format() }. You must finish these steps at least
   **15 days before the sale**:
@@ -337,8 +343,13 @@ subquestion: |
   1. File a recorded copy with the sheriff.
   1. Give a recorded copy to the foreclosure attorney.
 
-  If offices are closed on ${ filing_cutoff.format() }, finish on an earlier day.
-  This date does not change for weekends or holidays.
+  The legal cutoff is **${ filing_cutoff.format() }**, 15 calendar days before the sale.
+  % if filing_business_day != filing_cutoff:
+  That date falls on a weekend or Minnesota holiday. Plan to finish by
+  **${ filing_business_day.format() }**, the last business day before the cutoff.
+  % endif
+  Confirm office hours and finish earlier if any office will be closed.
+  Weekends and holidays do not extend the legal cutoff.
 ---
 id: deadline help
 event: deadline_help
@@ -379,10 +390,8 @@ question: |
 subquestion: |
   Your sale notice says how long your redemption period is.
 
-  | If your redemption period is | The sale is postponed |
-  |---|---|
-  | 6 months | 5 months |
-  | 12 months | 11 months |
+  * If your redemption period is **6 months**, the sale is postponed **5 months**.
+  * If your redemption period is **12 months**, the sale is postponed **11 months**.
 
   In exchange, you will have only **5 weeks** after the sale to redeem your home.
   If you are not sure how this affects you, ask a [foreclosure counselor](https://www.hocmn.org/).
@@ -470,7 +479,9 @@ subquestion: |
   1. Read every page.
   1. Sign the affidavit in front of a notary.
   1. Attach your current sale notice.
-  1. Finish recording and delivery by **${ filing_cutoff.format() }**. Plan for office closures and delays.
+  1. Plan to finish recording and delivery by **${ filing_business_day.format() }**. Confirm office hours and allow time for delays.
+
+  The legal cutoff is **${ filing_cutoff.format() }**, 15 calendar days before the sale.
 
   ${ action_button_html(url_action('review_foreclosure_sale_postponement'), label='Edit answers', color='info') }
   ${ al_user_bundle.download_list_html() }

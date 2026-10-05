@@ -18,6 +18,7 @@ authors = [
     { name = "Minnesota Courts", email = "alsauber@mnlegalservices.org" },
 ]
 dependencies = [
+    "docassemble.ALToolbox",
     "docassemble.AssemblyLine @ git+https://github.com/SuffolkLITLab/docassemble-AssemblyLine.git@main",
 ]
 
