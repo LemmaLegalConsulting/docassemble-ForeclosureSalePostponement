@@ -1,0 +1,24 @@
+Found 8 issues (0 errors, 0 warnings, 8 infos):
+INFO  [IG416] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:5
+  metadata block is missing common CourtFormsOnline publishing fields: can_I_use_this_form, before_you_start, LIST_topics
+
+INFO  [IS712] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:71
+  consider replacing 'option' in subquestion with simpler language, such as 'choice, way'
+
+INFO  [IS712] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:91
+  consider replacing 'dwelling' in fields[2].first_key with simpler language, such as 'home'
+
+INFO  [IS712] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:102
+  consider replacing 'dwelling' in subquestion with simpler language, such as 'home'
+
+INFO  [IS712] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:168
+  consider replacing 'Complete' in question with simpler language, such as 'fill in, finish'
+
+INFO  [IS712] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:181
+  consider replacing 'determine' in subquestion with simpler language, such as 'decide, work out, set, end, figure, find'
+
+INFO  [IS712] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:209
+  consider replacing 'option' in subquestion with simpler language, such as 'choice, way'
+
+INFO  [IA566] docassemble/ForeclosureSalePostponement/data/templates/foreclosure_sale_postponement.docx
+  text looks like manual list numbering instead of Word lists (first is "1. They are the owner(s) or mortgagor(s) of the real property (the “Property”)…")

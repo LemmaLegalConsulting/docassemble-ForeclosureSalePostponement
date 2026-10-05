@@ -1,0 +1,6 @@
+Found 2 issues (0 errors, 0 warnings, 2 infos):
+INFO  [IG416] docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml:5
+  metadata block is missing common CourtFormsOnline publishing fields: can_I_use_this_form, before_you_start, LIST_topics
+
+INFO  [IA566] docassemble/ForeclosureSalePostponement/data/templates/foreclosure_sale_postponement.docx
+  text looks like manual list numbering instead of Word lists (first is "1. They are the owner(s) or mortgagor(s) of the real property (the “Property”)…")

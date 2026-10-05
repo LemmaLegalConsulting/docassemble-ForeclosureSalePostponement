@@ -1,0 +1,42 @@
+{
+  "review_date": "2026-10-04",
+  "method": "Read DOCX body/table/header/footer XML; parse docxtpl variables; compare all PDF logical fields to YAML mappings and check tooltips.",
+  "templates": [
+    {
+      "file": "foreclosure_sale_postponement.docx",
+      "variables": [
+        "county",
+        "drafter",
+        "owner",
+        "sale_date"
+      ],
+      "jinja_labels": [
+        "owner",
+        "county",
+        "sale_date.format()",
+        "person",
+        "owner",
+        "drafter[0]",
+        "drafter[0].address.block()"
+      ],
+      "conditional_and_loop_tags": [
+        "p for person in owner",
+        "p endfor"
+      ],
+      "manual_execution_fields": "Signatures, initials, signing dates and notarial/witness attestations remain blank where applicable."
+    },
+    {
+      "file": "foreclosure_sale_postponement_next_steps.docx",
+      "variables": [
+        "filing_cutoff",
+        "sale_date"
+      ],
+      "jinja_labels": [
+        "sale_date.format()",
+        "filing_cutoff.format()"
+      ],
+      "conditional_and_loop_tags": [],
+      "manual_execution_fields": "Signatures, initials, signing dates and notarial/witness attestations remain blank where applicable."
+    }
+  ]
+}

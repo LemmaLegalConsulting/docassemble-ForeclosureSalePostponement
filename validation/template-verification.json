@@ -1,0 +1,18 @@
+[
+  {
+    "template": "foreclosure_sale_postponement.docx",
+    "status": "pass",
+    "strict_jinja_render": "pass",
+    "libreoffice_pdf_render": "pass",
+    "new_content_labels_found_in_pdf": 0,
+    "pdf_pages": 2
+  },
+  {
+    "template": "foreclosure_sale_postponement_next_steps.docx",
+    "status": "pass",
+    "strict_jinja_render": "pass",
+    "libreoffice_pdf_render": "pass",
+    "new_content_labels_found_in_pdf": 0,
+    "pdf_pages": 2
+  }
+]

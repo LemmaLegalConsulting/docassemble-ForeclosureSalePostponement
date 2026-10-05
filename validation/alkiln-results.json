@@ -1,0 +1,153 @@
+{
+  "date": "2026-10-04",
+  "server": "localhost",
+  "package": "ForeclosureSalePostponement",
+  "alkiln_commit": "d7e4f42aa8a828013a8a229067697decf1322e5f",
+  "application_commit": "71194f312c98683dc9b87419f9cf8be911fc1235",
+  "fixture_and_harness_sha256": {
+    "tests/steps.cjs": "fb643f9cb1476863f8312eea9126d4a0939c6b366bfb103ebcff45d548324645",
+    "tests/run_alkiln.py": "40805dd9ebe460ae3f36c394891dae778445edba719867abdbac4b7a1aa63cb2",
+    "docassemble/ForeclosureSalePostponement/data/sources/scenarios.feature": "99396640efbcbce5497b50afd798a6c087159dc38ed5405099d77b9b1d4b9f60"
+  },
+  "local_artifacts": ".alkiln-artifacts/20261004-190635",
+  "scenario_count": 15,
+  "passed": 15,
+  "step_count": 85,
+  "scenarios": [
+    {
+      "name": "Rosa prepares an affidavit with time to file",
+      "tags": [
+        "@foreclosure_one_owner"
+      ],
+      "status": "passed",
+      "steps": 8,
+      "duration_seconds": 15.274
+    },
+    {
+      "name": "Rosa and Luis both sign",
+      "tags": [
+        "@foreclosure_two_owners"
+      ],
+      "status": "passed",
+      "steps": 9,
+      "duration_seconds": 15.647
+    },
+    {
+      "name": "Rosa acts exactly 15 days before sale",
+      "tags": [
+        "@cutoff_today"
+      ],
+      "status": "passed",
+      "steps": 8,
+      "duration_seconds": 16.876
+    },
+    {
+      "name": "Rosa has only 14 days before sale",
+      "tags": [
+        "@too_late"
+      ],
+      "status": "passed",
+      "steps": 4,
+      "duration_seconds": 8.106
+    },
+    {
+      "name": "Elena has an April 21 proceeding",
+      "tags": [
+        "@old_proceeding"
+      ],
+      "status": "passed",
+      "steps": 4,
+      "duration_seconds": 6.877
+    },
+    {
+      "name": "Elena has an April 22 proceeding",
+      "tags": [
+        "@effective_date"
+      ],
+      "status": "passed",
+      "steps": 8,
+      "duration_seconds": 25.866
+    },
+    {
+      "name": "Kai asks about an investment property",
+      "tags": [
+        "@not_homestead"
+      ],
+      "status": "passed",
+      "steps": 4,
+      "duration_seconds": 3.593
+    },
+    {
+      "name": "Kai does not occupy the property",
+      "tags": [
+        "@not_occupied"
+      ],
+      "status": "passed",
+      "steps": 4,
+      "duration_seconds": 3.87
+    },
+    {
+      "name": "Kai owns a five-unit building",
+      "tags": [
+        "@five_units"
+      ],
+      "status": "passed",
+      "steps": 4,
+      "duration_seconds": 4.025
+    },
+    {
+      "name": "Nia is acting for a deceased parent",
+      "tags": [
+        "@deceased_owner"
+      ],
+      "status": "passed",
+      "steps": 4,
+      "duration_seconds": 3.752
+    },
+    {
+      "name": "Morgan already used owner postponement",
+      "tags": [
+        "@already_postponed"
+      ],
+      "status": "passed",
+      "steps": 4,
+      "duration_seconds": 4.685
+    },
+    {
+      "name": "Avery has no published notice yet",
+      "tags": [
+        "@unpublished"
+      ],
+      "status": "passed",
+      "steps": 4,
+      "duration_seconds": 5.852
+    },
+    {
+      "name": "Jordan declines the five-week tradeoff",
+      "tags": [
+        "@declines_redemption"
+      ],
+      "status": "passed",
+      "steps": 4,
+      "duration_seconds": 5.308
+    },
+    {
+      "name": "Rosa corrects the sale date to within 14 days",
+      "tags": [
+        "@sale_date_review"
+      ],
+      "status": "passed",
+      "steps": 9,
+      "duration_seconds": 11.725
+    },
+    {
+      "name": "Rosa enters a future recording date",
+      "tags": [
+        "@future_recording_date"
+      ],
+      "status": "passed",
+      "steps": 7,
+      "duration_seconds": 3.179
+    }
+  ]
+}
