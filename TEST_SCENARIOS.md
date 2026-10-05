@@ -27,6 +27,7 @@ All people and addresses are synthetic. Story tables describe the current implem
 Inspect long-answer pagination, signatures, mobile/keyboard navigation, and PDF reading order. Compare output with source forms and client-approved examples. Test limitations that require manual extra sheets as limitations, not as automated completion.
 
 - `sale_date_review`: Rosa corrects the sale date to within 14 days. Edit existing answers and assert the changed document or help screen.
+- `unknown_recording_date`: Rosa does not know the recording date. Assert the help screen that explains how to find it.
 
 ## Testing gaps to preserve for client review
 

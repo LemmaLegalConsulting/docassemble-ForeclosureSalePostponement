@@ -39,6 +39,9 @@ code: |
   qualifies_homestead
   if not (qualifies_homestead and occupies_home and dwelling_limit and living_owner):
     postponement_help
+  recording_date_unknown
+  if recording_date_unknown:
+    recording_date_help
   proceeding_recorded_date
   if proceeding_recorded_date < as_datetime("2026-04-22"):
     older_proceeding_help
@@ -47,9 +50,9 @@ code: |
   sale_date
   # Recompute on each review cycle, rather than caching dependent answers.
   filing_cutoff = sale_date.minus(days=15)
-  deadline_notice
   if today() > filing_cutoff:
     deadline_help
+  deadline_notice
   if not publication_started:
     publication_help
   if not accepts_shorter_redemption:
@@ -64,19 +67,147 @@ code: |
   owner[i].name.first
   owner[i].complete = True
 ---
+id: owner names
+sets:
+- owner[i].name.first
+- owner[i].name.middle
+- owner[i].name.last
+- owner[i].name.suffix
+question: |
+  % if i == 0:
+  What is your name?
+  % else:
+  What is the ${ ordinal(i) } owner's name?
+  % endif
+subquestion: |
+  % if i == 0:
+  You will sign this affidavit as an owner. Next, you can add any other owners who will sign.
+  % else:
+  Add each owner who will sign this affidavit.
+  % endif
+fields:
+- code: owner[i].name_fields()
+---
+id: preparer name
+sets:
+- drafter[0].name.first
+- drafter[0].name.middle
+- drafter[0].name.last
+- drafter[0].name.suffix
+question: |
+  Who prepared this affidavit?
+subquestion: |
+  This is usually you. The affidavit lists the name and address of the person who prepared it.
+fields:
+- code: drafter[0].name_fields()
+---
+variable name: minnesota_counties
+data:
+- Aitkin
+- Anoka
+- Becker
+- Beltrami
+- Benton
+- Big Stone
+- Blue Earth
+- Brown
+- Carlton
+- Carver
+- Cass
+- Chippewa
+- Chisago
+- Clay
+- Clearwater
+- Cook
+- Cottonwood
+- Crow Wing
+- Dakota
+- Dodge
+- Douglas
+- Faribault
+- Fillmore
+- Freeborn
+- Goodhue
+- Grant
+- Hennepin
+- Houston
+- Hubbard
+- Isanti
+- Itasca
+- Jackson
+- Kanabec
+- Kandiyohi
+- Kittson
+- Koochiching
+- Lac qui Parle
+- Lake
+- Lake of the Woods
+- Le Sueur
+- Lincoln
+- Lyon
+- McLeod
+- Mahnomen
+- Marshall
+- Martin
+- Meeker
+- Mille Lacs
+- Morrison
+- Mower
+- Murray
+- Nicollet
+- Nobles
+- Norman
+- Olmsted
+- Otter Tail
+- Pennington
+- Pine
+- Pipestone
+- Polk
+- Pope
+- Ramsey
+- Red Lake
+- Redwood
+- Renville
+- Rice
+- Rock
+- Roseau
+- St. Louis
+- Scott
+- Sherburne
+- Sibley
+- Stearns
+- Steele
+- Stevens
+- Swift
+- Todd
+- Traverse
+- Wabasha
+- Wadena
+- Waseca
+- Washington
+- Watonwan
+- Wilkin
+- Winona
+- Wright
+- Yellow Medicine
+---
 id: postponement introduction
 continue button field: postponement_intro
 question: |
   Postpone a Minnesota foreclosure sale
 subquestion: |
-  This interview prepares an affidavit for an owner who lives in the home.
-  You need your current sale notice and the recorded notice of pendency or lis pendens.
+  This interview prepares an affidavit to postpone the sale of a home you own and live in.
+  You will sign it in front of a notary, then record and deliver it yourself.
 
-  **Postponing the sale reduces your time to redeem the property to five weeks.**
-  Redemption means paying the required amount after the sale to keep the property.
+  Have these papers ready:
 
-  Talk with a [foreclosure counselor](https://www.hocmn.org/) before choosing this option.
-  This interview does not file anything for you.
+  * Your current sale notice
+  * The notice of pendency (also called a lis pendens)
+
+  **If you postpone the sale, you will have only 5 weeks after the sale to redeem your home.**
+  To redeem means to pay the full amount owed after the sale so you can keep your home.
+
+  Talk with a [foreclosure counselor](https://www.hocmn.org/) first.
 
   Read [Your Rights in Foreclosure](https://www.lawhelpmn.org/self-help-library/fact-sheet/your-rights-foreclosure) on LawHelpMN for more information.
 ---
@@ -84,81 +215,112 @@ id: property and owner eligibility
 question: |
   Tell us about the property
 fields:
-- Is the property classified as your homestead for property taxes?: qualifies_homestead
-  datatype: yesnoradio
-- Do you live in the property as your home?: occupies_home
-  datatype: yesnoradio
-- Does the property have one to four dwelling units?: dwelling_limit
-  datatype: yesnoradio
-- Are you a living owner or mortgagor of the property?: living_owner
+- Is the property your homestead for property taxes?: qualifies_homestead
   datatype: yesnoradio
   help: |
-    Choose No if you are acting for a deceased owner or an estate.
+    Your property tax statement says if the property is a homestead.
+- Do you live in the property?: occupies_home
+  datatype: yesnoradio
+- Does the property have 4 or fewer homes or apartments?: dwelling_limit
+  datatype: yesnoradio
+- Do you own the property or did you sign the mortgage?: living_owner
+  datatype: yesnoradio
+  help: |
+    If you are acting for an owner who died or for an estate, choose No.
 ---
 id: unsupported property or representative
 event: postponement_help
 question: |
-  Get help with your circumstances
+  This interview cannot prepare your affidavit
 subquestion: |
-  This interview covers a living owner who occupies a qualifying homestead with one to four dwelling units.
-  Your answers need individual review before using this affidavit.
+  This affidavit is only for an owner who lives in a homestead property with 4 or fewer homes.
+  Your answers show:
 
-  A representative or heir may have options even though this interview does not prepare that route.
-  Contact a [foreclosure counselor](https://www.hocmn.org/) or find
+  % if not qualifies_homestead:
+  * The property is not your homestead for property taxes.
+  % endif
+  % if not occupies_home:
+  * You do not live in the property.
+  % endif
+  % if not dwelling_limit:
+  * The property has more than 4 homes or apartments.
+  % endif
+  % if not living_owner:
+  * You are not an owner, or you are acting for an owner who died or for an estate.
+  % endif
+
+  You may still have options. Contact a [foreclosure counselor](https://www.hocmn.org/) or find
   [legal help](https://www.lawhelpmn.org/providers-and-clinics).
 
   ${ action_button_html(url_action('qualifies_homestead'), label='Edit property answers') }
 ---
 id: proceeding date
 question: |
-  When was the foreclosure notice recorded?
+  When was the notice of pendency recorded?
 subquestion: |
-  Use the recording date of the **notice of pendency** or **lis pendens**.
-  This is different from the sale date or the first newspaper publication.
-
-  The county recorder or the foreclosure attorney can help you find the recorded notice.
-  The recording date determines which version of the law applies.
+  The county stamps a recording date on the **notice of pendency** (also called a **lis pendens**).
+  This is not the sale date or the date the notice was in the newspaper.
 fields:
+- I do not know the recording date: recording_date_unknown
+  datatype: yesno
 - Recording date: proceeding_recorded_date
   datatype: date
   max: ${ today() }
+  hide if: recording_date_unknown
+---
+id: recording date help
+event: recording_date_help
+question: |
+  Find the recording date before you continue
+subquestion: |
+  The recording date tells us which version of the law and which affidavit apply to you.
+
+  To find it:
+
+  * Ask the foreclosure attorney named on your sale notice.
+  * Call the county recorder's office where the property is.
+  * Ask a [foreclosure counselor](https://www.hocmn.org/) for help.
+
+  ${ action_button_html(url_action('recording_date_unknown'), label='Enter the recording date') }
 ---
 id: older proceeding help
 event: older_proceeding_help
 question: |
-  Your proceeding needs an earlier form review
+  This interview cannot prepare an affidavit for an older foreclosure
 subquestion: |
-  This interview uses the 2026 affidavit for proceedings whose notice was recorded on or after April 22, 2026.
-  A proceeding recorded earlier needs review under the earlier rules.
+  Your notice of pendency was recorded on ${ proceeding_recorded_date.format() }.
+  This interview only works if it was recorded on or after April 22, 2026.
+  Earlier foreclosures use different rules.
 
   Contact a [foreclosure counselor](https://www.hocmn.org/) for help.
+
   ${ action_button_html(url_action('proceeding_recorded_date'), label='Edit recording date') }
 ---
 id: prior owner postponement
 question: |
-  Have you already used an owner postponement?
+  Has any owner already used this affidavit to postpone this foreclosure?
 subquestion: |
-  Answer for this foreclosure proceeding. A postponement requested by the lender is different.
+  Count only postponements that an owner asked for. Do not count postponements the lender asked for.
 fields:
-- Have you or another owner already used this affidavit to postpone this proceeding?: previous_postponement
+- no label: previous_postponement
   datatype: yesnoradio
 ---
 id: prior postponement help
 event: prior_postponement_help
 question: |
-  Get advice before requesting another postponement
+  You cannot use this affidavit again
 subquestion: |
-  An owner postponement can be used only once in a foreclosure proceeding.
-  Contact a [foreclosure counselor](https://www.hocmn.org/) to review your options.
+  Owners can use this affidavit only once in each foreclosure.
+  A [foreclosure counselor](https://www.hocmn.org/) can tell you about other options.
 
   ${ action_button_html(url_action('previous_postponement'), label='Edit postponement answer') }
 ---
 id: current sale date
 question: |
-  When is the sale scheduled?
+  When is the sale?
 subquestion: |
-  Use the date in the current Notice of Mortgage Foreclosure Sale or a later Postponement Notice.
-  You will attach that notice to your affidavit.
+  Use the sale date on your Notice of Mortgage Foreclosure Sale. If you got a
+  Postponement Notice later, use the date on that notice. You will attach this notice to your affidavit.
 fields:
 - Scheduled sale date: sale_date
   datatype: date
@@ -166,63 +328,75 @@ fields:
 id: filing cutoff notice
 continue button field: deadline_notice
 question: |
-  Complete the filing steps by ${ filing_cutoff.format() }
+  Finish the filing steps by ${ filing_cutoff.format() }
 subquestion: |
-  This date is **15 calendar days before** the scheduled sale on ${ sale_date.format() }.
-  Record the affidavit. File a recorded copy with the sheriff and deliver a recorded copy to the foreclosure attorney.
+  Your sale is on ${ sale_date.format() }. You must finish these steps at least
+  **15 days before the sale**:
 
-  Finish early. If offices are closed on this date, arrange to finish before they close.
-  This interview does not add time for weekends or holidays.
+  1. Record the signed affidavit with the county.
+  1. File a recorded copy with the sheriff.
+  1. Give a recorded copy to the foreclosure attorney.
+
+  If offices are closed on ${ filing_cutoff.format() }, finish on an earlier day.
+  This date does not change for weekends or holidays.
 ---
 id: deadline help
 event: deadline_help
 question: |
   Get help right away
 subquestion: |
-  The date 15 days before your scheduled sale has passed.
-  Contact a [foreclosure counselor](https://www.hocmn.org/) or an attorney about your options.
-  This interview cannot determine whether a late affidavit will be accepted.
+  Your sale is on ${ sale_date.format() }. The last day to finish the filing steps was ${ filing_cutoff.format() }.
+  This interview cannot tell you if a late affidavit will work.
+
+  Contact a [foreclosure counselor](https://www.hocmn.org/) or a lawyer now.
 
   ${ action_button_html(url_action('sale_date'), label='Edit sale date') }
 ---
 id: publication has started
 question: |
-  Has publication of the sale notice started?
+  Has the sale notice been in the newspaper yet?
 subquestion: |
-  The affidavit must be recorded after the first publication of the notice.
-  For a rescheduled sale, check the current Postponement Notice with the foreclosure attorney.
+  You can record the affidavit only after the sale notice is first published in the newspaper.
+  If your sale was rescheduled, ask the foreclosure attorney about the Postponement Notice.
 fields:
-- Has the notice been published?: publication_started
-  datatype: yesnoradio
+- no label: publication_started
+  datatype: yesnomaybe
 ---
 id: publication help
 event: publication_help
 question: |
-  Check the publication before recording
+  Check that the notice was published
 subquestion: |
-  Ask the foreclosure attorney or a [foreclosure counselor](https://www.hocmn.org/) to confirm when you can record the affidavit.
+  You can record the affidavit only after the sale notice is in the newspaper.
+  Ask the foreclosure attorney or a [foreclosure counselor](https://www.hocmn.org/) when it was published.
+  Then come back and change your answer.
+
   ${ action_button_html(url_action('publication_started'), label='Edit publication answer') }
 ---
 id: shorter redemption period
 question: |
-  Do you want to use this postponement?
+  Do you want to postpone the sale and have a shorter time to redeem?
 subquestion: |
-  If your original redemption period is six months, this option postpones the sale five months.
-  If it is twelve months, this option postpones the sale eleven months.
+  Your sale notice says how long your redemption period is.
 
-  In exchange, your redemption period after the sale becomes **five weeks**.
-  Ask a [foreclosure counselor](https://www.hocmn.org/) if you are unsure how this affects you.
+  | If your redemption period is | The sale is postponed |
+  |---|---|
+  | 6 months | 5 months |
+  | 12 months | 11 months |
+
+  In exchange, you will have only **5 weeks** after the sale to redeem your home.
+  If you are not sure how this affects you, ask a [foreclosure counselor](https://www.hocmn.org/).
 fields:
-- Do you want to shorten your redemption period to five weeks in exchange for postponement?: accepts_shorter_redemption
+- Postpone the sale and shorten my redemption period to 5 weeks: accepts_shorter_redemption
   datatype: yesnoradio
 ---
 id: redemption help
 event: redemption_help
 question: |
-  You have not chosen to shorten your redemption period
+  This interview cannot help without the shorter redemption period
 subquestion: |
-  This interview will not prepare an affidavit making that choice for you.
-  Contact a [foreclosure counselor](https://www.hocmn.org/) about other options.
+  This affidavit only works if you agree to a 5-week redemption period.
+  You chose not to. A [foreclosure counselor](https://www.hocmn.org/) can tell you about other options.
 
   ${ action_button_html(url_action('accepts_shorter_redemption'), label='Edit your choice') }
 ---
@@ -231,7 +405,8 @@ question: |
   Which county is the property in?
 fields:
 - County: county
-  help: Enter the county name without the word County.
+  datatype: dropdown
+  code: minnesota_counties
 ---
 id: foreclosure review
 event: review_foreclosure_sale_postponement
@@ -246,16 +421,16 @@ review:
     **Notice recorded:** ${ proceeding_recorded_date.format() }
 - Edit: previous_postponement
   button: |
-    **Previous owner postponement:** ${ yesno(previous_postponement) }
+    **Owner already postponed this foreclosure:** ${ yesno(previous_postponement) }
 - Edit: sale_date
   button: |
     **Scheduled sale:** ${ sale_date.format() }
 - Edit: publication_started
   button: |
-    **Publication started:** ${ yesno(publication_started) }
+    **Sale notice published:** ${ yesno(publication_started) if publication_started is not None else "I do not know" }
 - Edit: accepts_shorter_redemption
   button: |
-    **Choose five-week redemption:** ${ yesno(accepts_shorter_redemption) }
+    **Agreed to 5-week redemption:** ${ yesno(accepts_shorter_redemption) }
 - Edit: owner.revisit
   button: |
     **Owners:** ${ owner }
@@ -290,11 +465,12 @@ event: foreclosure_sale_postponement_download
 question: |
   Review and print your affidavit
 subquestion: |
-  Your affidavit and instructions are ready. Review them before signing in front of a notary.
-  Attach the current sale notice. **Nothing has been filed.**
+  Your affidavit and instructions are ready. **You still need to sign, record, and deliver the affidavit.**
 
-  The date 15 days before your sale is **${ filing_cutoff.format() }**.
-  Finish recording and delivery before office closures or other delays.
+  1. Read every page.
+  1. Sign the affidavit in front of a notary.
+  1. Attach your current sale notice.
+  1. Finish recording and delivery by **${ filing_cutoff.format() }**. Plan for office closures and delays.
 
   ${ action_button_html(url_action('review_foreclosure_sale_postponement'), label='Edit answers', color='info') }
   ${ al_user_bundle.download_list_html() }
@@ -305,7 +481,7 @@ progress: 100
 objects:
 - foreclosure_sale_postponement_Post_interview_instructions: ALDocument.using(title="Instructions", filename="foreclosure_sale_postponement_next_steps.docx",
     enabled=True, has_addendum=False)
-- foreclosure_sale_postponement_attachment: ALDocument.using(title="Foreclosure Sale Postponement", filename="foreclosure_sale_postponement",
+- foreclosure_sale_postponement_attachment: ALDocument.using(title="Affidavit to postpone foreclosure sale", filename="foreclosure_sale_postponement",
     enabled=True, has_addendum=False, )
 ---
 objects:

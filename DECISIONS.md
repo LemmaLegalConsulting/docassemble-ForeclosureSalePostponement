@@ -44,3 +44,7 @@ Leave both state and county of notarization blank for the actual signing. The pr
 ## Testing approach
 
 Use narrative ALKiln story tables plus assertions against downloaded PDF text. Include negative paths, recording-date/deadline boundaries, optional people, long text, and review edits. Save raw artifacts locally and commit only a sanitized execution summary. Keep synthetic unit/template checks in CI. Distinguish failures in test-tool compatibility from actual interview defects; document both, and never turn a failed expectation into a pass without explaining the change.
+
+## Plain-language and question-style review — 2026-10-04
+
+Reviewed screens against plain-language guidance and the Assembly Line "Writing good questions" guide. Eligibility labels replace jargon ("mortgagor", "dwelling units") with everyday words. The ineligible-property screen lists the specific answers that ruled the user out. A user who does not know the recording date can say so and gets a screen explaining how to find it, instead of guessing. The publication question accepts "I don't know" and leads to the same help screen as "No". When the deadline has passed, the deadline help appears before the "finish by" notice, not after it. Screens no longer show a heading question and a second, different label question together. County is a dropdown of Minnesota's 87 counties. Custom name screens replace AssemblyLine's generic "Name of the first drafter" and owner headings.

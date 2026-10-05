@@ -465,3 +465,18 @@ Feature: Narrative regression scenarios
     And I tap to continue
     Then I will be told an answer is invalid
     And the question id should be "proceeding date"
+
+  @unknown_recording_date
+  Scenario: Rosa does not know the recording date
+    # Verify that a user without the recording date gets help finding it instead of guessing.
+    Given I start the interview at "foreclosure_sale_postponement.yml"
+    And the maximum seconds for each step is 90
+    When I get to "recording date help" with this data:
+      | var | value | trigger |
+      | acknowledged_information_use | True | |
+      | qualifies_homestead | True | |
+      | occupies_home | True | |
+      | dwelling_limit | True | |
+      | living_owner | True | |
+      | recording_date_unknown | True | |
+    Then the question id should be "recording date help"
