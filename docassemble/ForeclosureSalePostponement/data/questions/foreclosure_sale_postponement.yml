@@ -1,12 +1,10 @@
 ---
 include:
 - docassemble.AssemblyLine:assembly_line.yml
+- docassemble.LawHelpMNBranding:theme.yml
 ---
 modules:
 - docassemble.ALToolbox.business_days
----
-features:
-  bootstrap theme: docassemble.LawHelpMNBranding:LawHelpMNBranding_custom.css
 ---
 metadata:
   title: Postpone a foreclosure sale
@@ -23,8 +21,6 @@ metadata:
   help_page_title: Your Rights in Foreclosure
 ---
 code: |
-  AL_ORGANIZATION_TITLE = "LawHelpMN"
-  AL_ORGANIZATION_HOMEPAGE = "https://www.lawhelpmn.org/"
   AL_DEFAULT_COUNTRY = "US"
   AL_DEFAULT_STATE = "MN"
   al_form_type = "other_form"
@@ -38,7 +34,6 @@ content: |
 objects:
 - owner: ALPeopleList.using(there_are_any=True, complete_attribute="complete")
 - drafter: ALPeopleList.using(target_number=1)
-- al_logo: DAStaticFile.using(filename="docassemble.LawHelpMNBranding:LawHelpMN2x_002_resized.png", alt_text="LawHelpMN")
 ---
 mandatory: true
 code: |
