@@ -52,3 +52,7 @@ Reviewed screens against plain-language guidance and the Assembly Line "Writing 
 ## Minnesota holiday calendar — 2026-10-05
 
 Use `docassemble.ALToolbox.business_days.is_business_day` with `country="US", subdiv="MN"` to recommend the last business day on or before the 15-calendar-day filing cutoff. Recompute both dates in the mandatory controller after sale-date edits. Show the recommended date and the separate legal cutoff in the interview and printable instructions. Keep the late-filing gate tied to the legal cutoff; the recommendation does not shorten eligibility or extend the legal period. Confirm local office hours because the calendar does not account for every closure. The user authorized ALToolbox as the holiday calculation source. No postponed sale date is estimated because the interview does not collect the original redemption period.
+
+## Shared LawHelpMN branding — 2026-10-05
+
+Reference the installed `docassemble.LawHelpMNBranding` package directly: `LawHelpMNBranding_custom.css` supplies the Bootstrap theme and `LawHelpMN2x_002_resized.png` supplies the full logo. Set the AssemblyLine organization title and homepage to LawHelpMN. The branding package must be installed on the server. No branding assets or CSS adapters are copied into the interviews.
