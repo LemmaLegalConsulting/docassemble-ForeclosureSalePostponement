@@ -44,6 +44,13 @@ jobs:
           TZ: America/New_York
           _ORIGIN: github
         run: python3 tests/run_alkiln_ci.py
+      - name: Show disposable server error logs on failure
+        if: failure()
+        run: |
+          container_id=$(docker ps -q | head -1)
+          if [ -n "$container_id" ]; then
+            docker exec "$container_id" tail -n 200 /usr/share/docassemble/log/docassemble.log || true
+          fi
       - name: Upload browser reports and generated documents
         if: always()
         uses: actions/upload-artifact@v4
