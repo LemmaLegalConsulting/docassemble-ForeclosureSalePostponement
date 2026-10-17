@@ -1,0 +1,13 @@
+---
+comment: |
+  The public LawHelpMNBranding package supplies the assets, but no theme.yml.
+  Keep the same theme settings while referencing the asset package explicitly.
+features:
+  bootstrap theme: docassemble.LawHelpMNBranding:LawHelpMNBranding_custom.css
+---
+objects:
+- al_logo: DAStaticFile.using(filename="docassemble.LawHelpMNBranding:LawHelpMN2x_002_resized.png", alt_text="LawHelpMN")
+---
+code: |
+  AL_ORGANIZATION_TITLE = "LawHelpMN"
+  AL_ORGANIZATION_HOMEPAGE = "https://www.lawhelpmn.org/"
