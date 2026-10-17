@@ -1,7 +1,7 @@
 ---
 include:
 - docassemble.AssemblyLine:assembly_line.yml
-- docassemble.LawHelpMNBranding:theme.yml
+- lawhelpmn_theme.yml
 ---
 modules:
 - docassemble.ALToolbox.business_days
