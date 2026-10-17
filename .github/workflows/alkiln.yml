@@ -30,6 +30,20 @@ jobs:
             preloaded modules:
               - docassemble.ALToolbox.ThreePartsDate
           DOCASSEMBLE_IMAGE: jhpyle/docassemble:1.10.7@sha256:c0b0a707a6cd2149d5777ee83af1ea1de544210e597371eac93e67a1503c395c
+      - name: Restart web workers after installing datatype dependencies
+        env:
+          SERVER_URL: ${{ steps.server.outputs.SERVER_URL }}
+        run: |
+          docker exec docassemble_container supervisorctl restart uwsgi
+          alkiln_ready_deadline=$((SECONDS + 180))
+          while (( SECONDS < alkiln_ready_deadline )); do
+            if curl --fail --silent --show-error --max-time 5 "$SERVER_URL" >/dev/null 2>&1; then
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "The isolated server did not become ready after restarting uwsgi."
+          exit 1
       - name: Install ALKiln and PDF assertion tools
         run: |
           sudo apt-get update
