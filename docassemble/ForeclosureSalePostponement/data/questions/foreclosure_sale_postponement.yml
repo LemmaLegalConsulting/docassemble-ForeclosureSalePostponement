@@ -1,4 +1,7 @@
 ---
+modules:
+- docassemble.ALToolbox.ThreePartsDate
+---
 include:
 - docassemble.AssemblyLine:assembly_line.yml
 - lawhelpmn_theme.yml
