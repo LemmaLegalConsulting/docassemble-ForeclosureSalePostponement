@@ -42,7 +42,23 @@ Installing a package may restart the server; finish installations before startin
 
 ## ALKiln story tables
 
-The isolated Docker workflow, representative feature, and startup fixes are maintained in [PR #3](https://github.com/LemmaLegalConsulting/docassemble-ForeclosureSalePostponement/pull/3). This technical-fixes branch supplies the branding, test-runtime, namespace, and affidavit-formatting foundation for that work. The integration test results in TEST_RESULTS.md cover both sets of changes together.
+### Isolated Docker run used by CI
+
+With Docker Desktop running Linux containers, run this from the repository root:
+
+```sh
+python tests/run_docker_e2e.py
+# Optional: leave the disposable server available for a browser walkthrough.
+python tests/run_docker_e2e.py --port 8091 --keep-server
+# Optional representative smoke test; the default runs every feature.
+python tests/run_docker_e2e.py --tags @e2e
+```
+
+This needs only Python, Git, and Docker on the host. It builds from tracked and unignored working-tree files, including uncommitted changes. Ignored `env/` audit material is excluded. The server and browser images are pinned by digest; ALKiln is pinned to 5.17.1. Chromium and Poppler run in a separate test container.
+
+The interview package and dependencies are installed while building the server image, before web workers start. The isolated config preloads `docassemble.ALToolbox.ThreePartsDate`, then readiness is checked at `/health_check?ready=1`. This replaces PR #3's asynchronous API install followed by a worker restart and root-page polling. It keeps the verified Lemma branding fork, so the older PR's duplicate local theme wrapper is unnecessary.
+
+The runner uses unique container/network names and binds the demo only to localhost. By default it removes its containers and network after testing; `--keep-server` prints the retained server's name and URL. It does not stop or alter existing Docassemble containers. Raw reports and downloads go to ignored `.alkiln-artifacts/ci/`. Disposable configuration and credentials go to `.alkiln-artifacts/docker/` and are excluded from the CI artifact upload. Source hashes and the exit code are retained in `run-metadata.json`.
 
 ### Existing installed-server runner
 
