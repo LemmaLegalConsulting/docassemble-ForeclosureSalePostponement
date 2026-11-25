@@ -2,6 +2,8 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from types import SimpleNamespace
 import unittest
+from zipfile import ZipFile
+from xml.etree import ElementTree
 from docx import Document
 from docxtpl import DocxTemplate
 from jinja2 import Environment, StrictUndefined
@@ -23,6 +25,19 @@ def render(path,context):
   assert '{{' not in text and '{%' not in text
   return text
 class ForeclosureTemplates(unittest.TestCase):
+ def test_recordable_affidavit_has_no_theme_or_colored_text(self):
+  path=ROOT/'docassemble/ForeclosureSalePostponement/data/templates/foreclosure_sale_postponement.docx'
+  ns={'w':'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}
+  w='{'+ns['w']+'}'
+  with ZipFile(path) as archive:
+   for part in ('word/styles.xml','word/document.xml'):
+    root=ElementTree.fromstring(archive.read(part))
+    for color in root.findall('.//w:color',ns):
+     with self.subTest(part=part,color=color.attrib):
+      self.assertIn(color.get(w+'val'),('000000','auto'))
+      self.assertIsNone(color.get(w+'themeColor'))
+      self.assertIsNone(color.get(w+'themeTint'))
+      self.assertIsNone(color.get(w+'themeShade'))
  def test_current_sale_and_all_owners_in_2026_affidavit(self):
   path=ROOT/'docassemble/ForeclosureSalePostponement/data/templates/foreclosure_sale_postponement.docx'
   for count in (1,2,4):

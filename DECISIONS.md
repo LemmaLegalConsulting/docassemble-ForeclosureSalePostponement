@@ -60,3 +60,17 @@ Reference the installed `docassemble.LawHelpMNBranding` package directly: `LawHe
 ## Shared theme entrypoint — 2026-10-05
 
 The LemmaLegalConsulting fork now provides `docassemble.LawHelpMNBranding:theme.yml`. Include it after AssemblyLine instead of repeating the theme, logo, and organization settings in each interview. Install the Lemma fork (version 0.0.2 or later) on the server. This supersedes the direct configuration above and matches the shared theme include pattern used by LITLabTheme.
+
+## Focused technical repairs — 2026-11-13
+
+Declare the verified branding fork revision in both dependency metadata sources. Pin the real deadline-test runtime and PyYAML in development requirements, with the native barcode library installed in Linux CI. Use `pkgutil.extend_path` for the shared `docassemble` namespace because the current runtime's setuptools no longer supplies `pkg_resources`; keep the certificate-security requirement intact rather than selecting an incompatible older runtime.
+
+Set affidavit text styles to explicit black, remove their theme-color overrides, and remove the colored title rule. Preserve the affidavit's wording, Jinja tags, execution blanks, and recording margins. A regression check guards against colored or theme-controlled text returning.
+
+The full audit and raw technical-repair evidence remain under ignored `env/`. Keep the unresolved legal and workflow questions in tracked [FORM_SOURCES.md](FORM_SOURCES.md) and [IMPROVEMENTS.md](IMPROVEMENTS.md). No eligibility, deadline, sworn declaration, or delivery rule is changed by these repairs.
+
+## Reproducible isolated E2E tests — 2026-11-24
+
+Keep the isolated E2E workflow, representative feature, and corrected Docker startup in PR #3. PR #5 supplies its technical foundation, including the verified Lemma branding fork and runnable unit tests. The E2E integration uses package installation before first startup, preloads `docassemble.ALToolbox.ThreePartsDate`, and checks the readiness endpoint. Retain every regression scenario and PDF assertion.
+
+Initialize standalone deadline tests through Docassemble's supported global context and configuration hook. Supply locale/timezone explicitly; do not replace the real calendar helpers or change expected dates to turn a failure into a pass. Current results and remaining acceptance boundaries are in [TEST_RESULTS.md](TEST_RESULTS.md).

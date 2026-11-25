@@ -53,7 +53,11 @@ setup(name='docassemble.ForeclosureSalePostponement',
       license='MIT',
       url='https://docassemble.org',
       packages=find_namespace_packages(),
-      install_requires=['docassemble.ALToolbox', 'docassemble.AssemblyLine @ git+https://github.com/SuffolkLITLab/docassemble-AssemblyLine.git@main'],
+      install_requires=[
+          'docassemble.ALToolbox',
+          'docassemble.AssemblyLine @ git+https://github.com/SuffolkLITLab/docassemble-AssemblyLine.git@main',
+          'docassemble.LawHelpMNBranding @ git+https://github.com/LemmaLegalConsulting/docassemble-LawHelpMNBranding.git@f6b5c1a750ee4618a1182682fd42cb98e85b3670',
+      ],
       zip_safe=False,
       package_data=find_package_data(where='docassemble/ForeclosureSalePostponement/', package='docassemble.ForeclosureSalePostponement'),
      )

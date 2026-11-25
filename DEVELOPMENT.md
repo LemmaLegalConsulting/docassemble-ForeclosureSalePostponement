@@ -2,7 +2,7 @@
 
 Working repo: https://github.com/LemmaLegalConsulting/docassemble-ForeclosureSalePostponement
 Original (`upstream`): https://github.com/AmandaSauber/docassemble-ForeclosureSalePostponement
-Branch: `setup/validation-and-review`. The local test installation is on `http://localhost`; no apps-dev or public deployment was performed.
+The original local baseline used branch `setup/validation-and-review` and `http://localhost`. Use the isolated Docker runner below to test the current working tree without changing an existing server. No public deployment is performed by these checks.
 
 ## Static and template checks
 
@@ -15,6 +15,22 @@ uv pip install --python .venv/bin/python -r requirements-dev.txt
 
 DAYamlChecker is pinned to source commit `5676a949ebca269325eb0d8bf0abad52eda4aa61` (source version 1.7.0). URL and accessibility checks stay enabled. Errors fail CI; warnings remain review work. GitHub Actions also runs template regression tests. Use `uv run --no-project --with-requirements requirements-dev.txt ...` if running tools without installing this interview's runtime dependencies.
 
+`requirements-dev.txt` also pins PyYAML, ALToolbox, and Docassemble base for the deadline tests. Those tests use the actual runtime date and business-day helpers. They verify the current calculation and printable output, not the unresolved legal counting rules in [FORM_SOURCES.md](FORM_SOURCES.md).
+
+Docassemble imports `pyzbar` even for these date tests. On Ubuntu 24.04, install its native library before running the suite:
+
+```sh
+sudo apt-get update
+sudo apt-get install -y --no-install-recommends libzbar0t64
+export NLTK_DATA="$PWD/.venv/nltk_data"
+python -c 'import nltk, os; [nltk.download(name, download_dir=os.environ["NLTK_DATA"], raise_on_error=True) for name in ("omw-1.4", "wordnet", "wordnet_ic", "sentiwordnet")]'
+python -c 'import os, pathlib, zipfile; p = pathlib.Path(os.environ["NLTK_DATA"]) / "corpora"; zipfile.ZipFile(p / "wordnet.zip").extractall(p)'
+```
+
+CI uses Ubuntu 24.04 and installs the native library and language data explicitly. On Windows, pyzbar's bundled DLLs require the matching Visual C++ 2013 runtime; see [Microsoft's runtime downloads](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist/). The November 13 local run used DLLs extracted from Microsoft's signed bundle into ignored `env/technical-fixes/`, with a process-local DLL search path; it did not install a system runtime or mock Docassemble.
+
+The interview requires the LemmaLegalConsulting branding fork. Both package metadata declarations pin revision `f6b5c1a750ee4618a1182682fd42cb98e85b3670` (version 0.0.2), which supplies `theme.yml` and its assets.
+
 ## Run the interview locally
 
 ```sh
@@ -25,6 +41,10 @@ Open `http://localhost/interview?i=docassemble.ForeclosureSalePostponement:data/
 Installing a package may restart the server; finish installations before starting browser suites. Use only synthetic test data.
 
 ## ALKiln story tables
+
+The isolated Docker workflow, representative feature, and startup fixes are maintained in [PR #3](https://github.com/LemmaLegalConsulting/docassemble-ForeclosureSalePostponement/pull/3). This technical-fixes branch supplies the branding, test-runtime, namespace, and affidavit-formatting foundation for that work. The integration test results in TEST_RESULTS.md cover both sets of changes together.
+
+### Existing installed-server runner
 
 Fixtures: `docassemble/ForeclosureSalePostponement/data/sources/scenarios.feature`.
 Narratives and expected behavior: [TEST_SCENARIOS.md](TEST_SCENARIOS.md).
