@@ -71,6 +71,6 @@ The full audit and raw technical-repair evidence remain under ignored `env/`. Ke
 
 ## Reproducible isolated E2E tests — 2026-11-24
 
-Carry PR #3's representative feature and Cucumber runner into the technical-fixes branch while retaining the verified Lemma branding fork. Replace the failed API-install/restart bootstrap with a Docker image that installs the package before first startup. Preload `docassemble.ALToolbox.ThreePartsDate` in the test server configuration, use the readiness endpoint, and run the same Docker entrypoint locally and in CI. Keep the existing servers untouched and retain every regression scenario and PDF assertion.
+Keep the isolated E2E workflow, representative feature, and corrected Docker startup in PR #3. PR #5 supplies its technical foundation, including the verified Lemma branding fork and runnable unit tests. The E2E integration uses package installation before first startup, preloads `docassemble.ALToolbox.ThreePartsDate`, and checks the readiness endpoint. Retain every regression scenario and PDF assertion.
 
 Initialize standalone deadline tests through Docassemble's supported global context and configuration hook. Supply locale/timezone explicitly; do not replace the real calendar helpers or change expected dates to turn a failure into a pass. Current results and remaining acceptance boundaries are in [TEST_RESULTS.md](TEST_RESULTS.md).
