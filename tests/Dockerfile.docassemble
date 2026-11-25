@@ -1,0 +1,5 @@
+FROM jhpyle/docassemble@sha256:c0b0a707a6cd2149d5777ee83af1ea1de544210e597371eac93e67a1503c395c
+
+# Install before web workers start, avoiding an asynchronous API-install race.
+COPY . /tmp/foreclosure-source
+RUN /usr/share/docassemble/local3.14/bin/pip install /tmp/foreclosure-source

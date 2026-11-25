@@ -1,0 +1,13 @@
+FROM node:22-bookworm-slim@sha256:be979e5523c76fa4d5ca4ebd3099078f220aa47ec39c48ad5b5df9314debd6eb
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      chromium poppler-utils python3 git ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+ENV PUPPETEER_SKIP_DOWNLOAD=true
+RUN npm install --install-strategy=nested --prefix /opt/alkiln @suffolklitlab/alkiln@5.17.1
+ENV ALKILN_PATH=/opt/alkiln/node_modules/@suffolklitlab/alkiln \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium \
+    TZ=America/Chicago
+WORKDIR /workspace
+COPY . .
+CMD ["python3", "tests/run_alkiln_ci.py"]
