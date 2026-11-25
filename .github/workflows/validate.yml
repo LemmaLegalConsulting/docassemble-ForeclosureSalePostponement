@@ -7,15 +7,38 @@ permissions:
   contents: read
 jobs:
   dayamlchecker:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.12'
-      - name: Install pinned checker
-        run: python -m pip install -r requirements-dev.txt
+      - name: Install barcode library required by Docassemble imports
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libzbar0t64
+      - name: Install checker and test runtime
+        run: |
+          python -m pip install --upgrade "pip @ https://files.pythonhosted.org/packages/3f/06/3e4420302363fbb71be3c7f35ce042f54bfca330e3e66b3a2e3c4cca579f/pip-26.2.2-py3-none-any.whl#sha256=fd7f4dfa8190e014013b9f08f3e973f4e4c26ffd179a204895533a7254813a70"
+          python -m pip install -r requirements-dev.txt
+      - name: Prepare language data required by Docassemble imports
+        env:
+          NLTK_DATA: ${{ runner.temp }}/nltk_data
+        run: |
+          echo "NLTK_DATA=$NLTK_DATA" >> "$GITHUB_ENV"
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          from zipfile import ZipFile
+          import nltk
+          for corpus in ("omw-1.4", "wordnet", "wordnet_ic", "sentiwordnet"):
+              nltk.download(corpus, download_dir=os.environ["NLTK_DATA"], raise_on_error=True)
+          # Pattern checks for an unpacked WordNet corpus during import.
+          corpora = Path(os.environ["NLTK_DATA"]) / "corpora"
+          with ZipFile(corpora / "wordnet.zip") as archive:
+              archive.extractall(corpora)
+          PY
       - name: Check YAML, Python, URLs, templates, accessibility, and style
         run: dayamlchecker --style .
-      - name: Test template regressions
+      - name: Test deadlines and templates
         run: python -m unittest discover -s tests -p "test_*.py"

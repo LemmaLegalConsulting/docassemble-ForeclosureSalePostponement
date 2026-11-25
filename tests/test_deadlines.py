@@ -2,17 +2,33 @@ from pathlib import Path
 import unittest
 
 import yaml
+from pluggy import HookimplMarker
 from docassemble.ALToolbox.business_days import is_business_day
-from docassemble.base.util import as_datetime
+from docassemble.base.util import as_datetime, set_language
+from docassemble.base.thread_context import empty_globals, global_context
+from docassemble.base.plugin_manager import pm
 from test_templates import render
 
 ROOT = Path(__file__).resolve().parents[1]
 INTERVIEW = ROOT / "docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml"
 
 
+class StandaloneConfiguration:
+    @HookimplMarker("docassemble")
+    def get_configuration(self):
+        # Supply server configuration, not replacement date/calendar functions.
+        return {}
+
+
 class FilingDates(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        # A standalone run has no request context or server locale defaults.
+        configuration = StandaloneConfiguration()
+        pm.register(configuration)
+        cls.addClassCleanup(pm.unregister, plugin=configuration)
+        cls.enterClassContext(global_context(empty_globals()))
+        set_language("en")
         blocks = list(yaml.safe_load_all(INTERVIEW.read_text()))
         controller = next(block["code"] for block in blocks if block.get("mandatory") and "filing_cutoff =" in block.get("code", ""))
         # Execute the interview's calculation, including review-cycle recomputation.
@@ -21,7 +37,7 @@ class FilingDates(unittest.TestCase):
     def dates(self, sale, namespace=None):
         if namespace is None:
             namespace = {"is_business_day": is_business_day}
-        namespace["sale_date"] = as_datetime(sale)
+        namespace["sale_date"] = as_datetime(sale, timezone="America/Chicago")
         exec(self.calculation, namespace)
         return namespace
 

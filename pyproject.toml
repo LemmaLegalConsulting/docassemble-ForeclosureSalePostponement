@@ -11,16 +11,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "docassemble.ForeclosureSalePostponement"
-version = "1.0"
+version = "1.0.1"
 description = "Foreclosure Sale Postponement"
 readme = "README.md"
 authors = [
     { name = "Minnesota Courts", email = "alsauber@mnlegalservices.org" },
 ]
 dependencies = [
-    "docassemble.LawHelpMNBranding @ git+https://github.com/AmandaSauber/docassemble-LawHelpMNBranding.git@4f8cfa486cc3cea67ad14c671f2936e34c75c6e9",
     "docassemble.ALToolbox",
     "docassemble.AssemblyLine @ git+https://github.com/SuffolkLITLab/docassemble-AssemblyLine.git@main",
+    "docassemble.LawHelpMNBranding @ git+https://github.com/LemmaLegalConsulting/docassemble-LawHelpMNBranding.git@f6b5c1a750ee4618a1182682fd42cb98e85b3670",
 ]
 
 [project.urls]

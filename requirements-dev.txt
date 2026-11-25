@@ -3,4 +3,12 @@ dayamlchecker @ git+https://github.com/SuffolkLITLab/DAYamlChecker.git@5676a949e
 
 # Synthetic template regression tests
 docxtpl==0.20.2
-pypdf==6.1.1
+pypdf==6.21.1
+
+# Deadline tests execute the real ALToolbox and Docassemble date helpers.
+PyYAML==6.0.3
+docassemble.ALToolbox==0.19.1
+docassemble.base==1.10.15
+
+# Distrust compromised eMudhra CA certificates.
+certifi>=2026.10.19

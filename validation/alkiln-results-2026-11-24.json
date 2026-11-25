@@ -1,0 +1,150 @@
+{
+  "date": "2026-11-24",
+  "branch": "technical-fixes",
+  "application_commit": "aaa9bfecbb1dfe33763f2677422c971f7174e0e1",
+  "working_tree_changes": true,
+  "environment": {
+    "server_image": "jhpyle/docassemble@sha256:c0b0a707a6cd2149d5777ee83af1ea1de544210e597371eac93e67a1503c395c",
+    "docassemble.base": "1.10.7",
+    "docassemble.webapp": "1.10.7",
+    "docassemble.AssemblyLine": "4.9.0",
+    "assemblyline_commit": "fdc7c6e9355e7433e9acb8521a6e3202dc39759e",
+    "docassemble.ALToolbox": "0.19.1",
+    "docassemble.LawHelpMNBranding": "0.0.2",
+    "holidays": "0.109",
+    "alkiln": "5.17.1",
+    "timezone": "America/Chicago"
+  },
+  "exit_code": 0,
+  "scenario_count": 17,
+  "passed": 17,
+  "step_count": 97,
+  "passed_steps": 97,
+  "hidden_lifecycle_hooks": 34,
+  "unit_test_count": 5,
+  "unit_environments": [
+    "Docker server runtime",
+    "Clean Linux venv with declared requirements and docassemble.base 1.10.15",
+    "Windows Python 3.12.14 with declared requirements"
+  ],
+  "static_check": {
+    "errors": 0,
+    "warnings": 0,
+    "infos": 4
+  },
+  "application_and_test_sha256": {
+    "docassemble/ForeclosureSalePostponement/data/sources/end_to_end.feature": "39cf2f788ec51ca341069c833fb779d6ee90c8ed64aeb513916c652867f08a37",
+    "tests/Dockerfile.alkiln": "7fb13cc392a4c7c01f940924bd4f978e144f03ed635df0ef8f5d79cefc4cfe63",
+    "tests/Dockerfile.docassemble": "f03e85c849843fdadc188972fb2d4e887ea54d36c6b0e826b88bc0552a5e3765",
+    "tests/run_alkiln_ci.py": "08043fbb8347e4178f6d649f6b3b7e2d2b58627174bedc7d3593a4b5a8aab892",
+    "docassemble/ForeclosureSalePostponement/__init__.py": "7170a9c838cffe937add3580607422cd40c8596d3b21f33728c0279a49fa95dc",
+    "docassemble/ForeclosureSalePostponement/data/questions/foreclosure_sale_postponement.yml": "8e020e33aaf12b2e404359fb12fa7bc99080192dd08ea8b06c544835641a51cd",
+    "docassemble/ForeclosureSalePostponement/data/sources/2026-chapter-51.html": "bf964ef267096ef449b65f5b59ce55eb3805f97a78a9475c9931e1c3474c0f8e",
+    "docassemble/ForeclosureSalePostponement/data/sources/README.md": "caa1534f695c9928fbcc168a0fa9bcdf4f60069f71614e89a3a37b7334b47492",
+    "docassemble/ForeclosureSalePostponement/data/sources/lawhelpmn-september-2026-affidavit.pdf": "e00cb596e51648b9f8a6ade40070f0388d98964f6efdc2584de71b9e35a2910f",
+    "docassemble/ForeclosureSalePostponement/data/sources/scenarios.feature": "63273e31d5d33e9a7a568fb7c023394f992e200cc5fa6c129fee3f7e254bf8cd",
+    "docassemble/ForeclosureSalePostponement/data/static/MNfavicon-96x96.png": "c2e22cf455f1968c53e6795908987403c69e5ccd629c0fc318489b291ccd3769",
+    "docassemble/ForeclosureSalePostponement/data/static/README.md": "efc49cab70460eccaaa163024bb6c81070bdf414ac18411449a417c4274bb878",
+    "docassemble/ForeclosureSalePostponement/data/templates/README.md": "ac46795db98c5aa0e138162898539caf51d43435b65c5797c038d3d2694d8cad",
+    "docassemble/ForeclosureSalePostponement/data/templates/foreclosure_sale_postponement.docx": "2fdf314937df282132a69dbca57d8c0a0323bb5ded99ffd6fe1c69cfaad059e1",
+    "docassemble/ForeclosureSalePostponement/data/templates/foreclosure_sale_postponement_next_steps.docx": "ea9d4c1502a65537c4262785377262713c32d0c9137362e3c65ba6215feb1563",
+    "docassemble/__init__.py": "07db1e5dbe73602d517aefe4d21fce8a45de2666dc5b7c37c0b20fcae97ca54a",
+    "tests/steps.cjs": "ddcedc2132f3e75fd084e254a26b72620c51e8d5674b33406cd31509efd5b2c6",
+    "tests/test_deadlines.py": "8c95d75befaa81c6957d6d4f285740440062b7061cbd6afad48611952b010046",
+    "tests/test_templates.py": "d0f010733c9aad00382a973e4c2ad07fbd663e9b277742cba7c3168a6cc13917"
+  },
+  "scenarios": [
+    {
+      "name": "Rosa prepares an affidavit with time to file",
+      "status": "passed",
+      "steps": 8
+    },
+    {
+      "name": "Rosa prepares an affidavit with time to file",
+      "status": "passed",
+      "steps": 8
+    },
+    {
+      "name": "Rosa and Luis both sign",
+      "status": "passed",
+      "steps": 9
+    },
+    {
+      "name": "Rosa acts exactly 15 days before sale",
+      "status": "passed",
+      "steps": 8
+    },
+    {
+      "name": "Rosa has only 14 days before sale",
+      "status": "passed",
+      "steps": 4
+    },
+    {
+      "name": "Elena has an April 21 proceeding",
+      "status": "passed",
+      "steps": 4
+    },
+    {
+      "name": "Elena has an April 22 proceeding",
+      "status": "passed",
+      "steps": 8
+    },
+    {
+      "name": "Kai asks about an investment property",
+      "status": "passed",
+      "steps": 4
+    },
+    {
+      "name": "Kai does not occupy the property",
+      "status": "passed",
+      "steps": 4
+    },
+    {
+      "name": "Kai owns a five-unit building",
+      "status": "passed",
+      "steps": 4
+    },
+    {
+      "name": "Nia is acting for a deceased parent",
+      "status": "passed",
+      "steps": 4
+    },
+    {
+      "name": "Morgan already used owner postponement",
+      "status": "passed",
+      "steps": 4
+    },
+    {
+      "name": "Avery has no published notice yet",
+      "status": "passed",
+      "steps": 4
+    },
+    {
+      "name": "Jordan declines the five-week tradeoff",
+      "status": "passed",
+      "steps": 4
+    },
+    {
+      "name": "Rosa corrects the sale date to within 14 days",
+      "status": "passed",
+      "steps": 9
+    },
+    {
+      "name": "Rosa enters a future recording date",
+      "status": "passed",
+      "steps": 7
+    },
+    {
+      "name": "Rosa does not know the recording date",
+      "status": "passed",
+      "steps": 4
+    }
+  ],
+  "raw_artifacts": ".alkiln-artifacts/ci",
+  "artifact_credential_matches": 0,
+  "limits": [
+    "GitHub remote checks require a push and a new workflow run.",
+    "Not legal approval or production acceptance.",
+    "Application dependency metadata still follows AssemblyLine main; the tested revision is recorded above."
+  ]
+}

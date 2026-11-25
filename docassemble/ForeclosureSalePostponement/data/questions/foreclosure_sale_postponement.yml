@@ -1,10 +1,7 @@
 ---
-modules:
-- docassemble.ALToolbox.ThreePartsDate
----
 include:
 - docassemble.AssemblyLine:assembly_line.yml
-- lawhelpmn_theme.yml
+- docassemble.LawHelpMNBranding:theme.yml
 ---
 modules:
 - docassemble.ALToolbox.business_days

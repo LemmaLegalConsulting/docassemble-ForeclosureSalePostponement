@@ -2,7 +2,7 @@
 
 Working repo: https://github.com/LemmaLegalConsulting/docassemble-ForeclosureSalePostponement
 Original (`upstream`): https://github.com/AmandaSauber/docassemble-ForeclosureSalePostponement
-Branch: `setup/validation-and-review`. The local test installation is on `http://localhost`; no apps-dev or public deployment was performed.
+The original local baseline used branch `setup/validation-and-review` and `http://localhost`. Use the isolated Docker runner below to test the current working tree without changing an existing server. No public deployment is performed by these checks.
 
 ## Static and template checks
 
@@ -15,6 +15,22 @@ uv pip install --python .venv/bin/python -r requirements-dev.txt
 
 DAYamlChecker is pinned to source commit `5676a949ebca269325eb0d8bf0abad52eda4aa61` (source version 1.7.0). URL and accessibility checks stay enabled. Errors fail CI; warnings remain review work. GitHub Actions also runs template regression tests. Use `uv run --no-project --with-requirements requirements-dev.txt ...` if running tools without installing this interview's runtime dependencies.
 
+`requirements-dev.txt` also pins PyYAML, ALToolbox, and Docassemble base for the deadline tests. Those tests use the actual runtime date and business-day helpers. They verify the current calculation and printable output, not the unresolved legal counting rules in [FORM_SOURCES.md](FORM_SOURCES.md).
+
+Docassemble imports `pyzbar` even for these date tests. On Ubuntu 24.04, install its native library before running the suite:
+
+```sh
+sudo apt-get update
+sudo apt-get install -y --no-install-recommends libzbar0t64
+export NLTK_DATA="$PWD/.venv/nltk_data"
+python -c 'import nltk, os; [nltk.download(name, download_dir=os.environ["NLTK_DATA"], raise_on_error=True) for name in ("omw-1.4", "wordnet", "wordnet_ic", "sentiwordnet")]'
+python -c 'import os, pathlib, zipfile; p = pathlib.Path(os.environ["NLTK_DATA"]) / "corpora"; zipfile.ZipFile(p / "wordnet.zip").extractall(p)'
+```
+
+CI uses Ubuntu 24.04 and installs the native library and language data explicitly. On Windows, pyzbar's bundled DLLs require the matching Visual C++ 2013 runtime; see [Microsoft's runtime downloads](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist/). The November 13 local run used DLLs extracted from Microsoft's signed bundle into ignored `env/technical-fixes/`, with a process-local DLL search path; it did not install a system runtime or mock Docassemble.
+
+The interview requires the LemmaLegalConsulting branding fork. Both package metadata declarations pin revision `f6b5c1a750ee4618a1182682fd42cb98e85b3670` (version 0.0.2), which supplies `theme.yml` and its assets.
+
 ## Run the interview locally
 
 ```sh
@@ -25,6 +41,26 @@ Open `http://localhost/interview?i=docassemble.ForeclosureSalePostponement:data/
 Installing a package may restart the server; finish installations before starting browser suites. Use only synthetic test data.
 
 ## ALKiln story tables
+
+### Isolated Docker run used by CI
+
+With Docker Desktop running Linux containers, run this from the repository root:
+
+```sh
+python tests/run_docker_e2e.py
+# Optional: leave the disposable server available for a browser walkthrough.
+python tests/run_docker_e2e.py --port 8091 --keep-server
+# Optional representative smoke test; the default runs every feature.
+python tests/run_docker_e2e.py --tags @e2e
+```
+
+This needs only Python, Git, and Docker on the host. It builds from tracked and unignored working-tree files, including uncommitted changes. Ignored `env/` audit material is excluded. The server and browser images are pinned by digest; ALKiln is pinned to 5.17.1. Chromium and Poppler run in a separate test container.
+
+The interview package and dependencies are installed while building the server image, before web workers start. The isolated config preloads `docassemble.ALToolbox.ThreePartsDate`, then readiness is checked at `/health_check?ready=1`. This replaces PR #3's asynchronous API install followed by a worker restart and root-page polling. It keeps the verified Lemma branding fork, so the older PR's duplicate local theme wrapper is unnecessary.
+
+The runner uses unique container/network names and binds the demo only to localhost. By default it removes its containers and network after testing; `--keep-server` prints the retained server's name and URL. It does not stop or alter existing Docassemble containers. Raw reports and downloads go to ignored `.alkiln-artifacts/ci/`. Disposable configuration and credentials go to `.alkiln-artifacts/docker/` and are excluded from the CI artifact upload. Source hashes and the exit code are retained in `run-metadata.json`.
+
+### Existing installed-server runner
 
 Fixtures: `docassemble/ForeclosureSalePostponement/data/sources/scenarios.feature`.
 Narratives and expected behavior: [TEST_SCENARIOS.md](TEST_SCENARIOS.md).
