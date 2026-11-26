@@ -16,7 +16,7 @@ env=os.environ.copy();env.update(ALKILN_PATH=str(alkiln),SERVER_URL=server['apiu
 setup="const s=require(process.argv[1]);s.save_install_method('server');s.save_repo_folder_name(process.argv[2]);s.save_artifacts_path_name(process.argv[3]);"
 subprocess.run(['node','-e',setup,str(alkiln/'lib/utils/session_vars.js'),package,str(artifacts)],cwd=repo,env=env,check=True)
 helper=artifacts/'bootstrap.cjs';helper.write_text('const s=require('+json.dumps(str(alkiln/'lib/utils/session_vars.js'))+');s.set_sources_paths(['+json.dumps(str(sources))+']);\n')
-cmd=['node',str(alkiln/'node_modules/@cucumber/cucumber/bin/cucumber.js'),'--require',str(helper),'--require',str(alkiln/'lib/index.js'),'--tags',tags,'--format','progress','--format','json:'+str(artifacts/'cucumber.json'),'--format','summary:'+str(artifacts/'summary.txt'),str(sources/'*.feature')]
+cmd=['node',str(alkiln/'node_modules/@cucumber/cucumber/bin/cucumber.js'),'--config',str(Path('tests')/'cucumber.cjs'),'--require',str(helper),'--require',str(alkiln/'lib/index.js'),'--tags',tags,'--format','progress','--format','json:'+str(artifacts/'cucumber-results.json'),'--format','summary:'+str(artifacts/'summary.txt'),str(sources/'*.feature')]
 if (repo/'tests/steps.cjs').exists():cmd[2:2]=['--require',str(repo/'tests/steps.cjs')]
 with (artifacts/'console.txt').open('w') as output:
  result=subprocess.run(cmd,cwd=repo,env=env,stdout=output,stderr=subprocess.STDOUT)

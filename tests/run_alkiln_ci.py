@@ -22,12 +22,14 @@ helper.write_text(
 )
 command = [
     "node", str(alkiln / "node_modules/@cucumber/cucumber/bin/cucumber.js"),
+    # Cucumber 9 joins config paths to cwd, including absolute paths.
+    "--config", os.path.relpath(repo / "tests/cucumber.cjs", artifacts),
     "--require", str(helper),
     "--require", str(alkiln / "lib/index.js"),
     "--require", str(repo / "tests/steps.cjs"),
     "--exit",
     "--format", "progress",
-    "--format", "json:" + str(artifacts / "cucumber.json"),
+    "--format", "json:" + str(artifacts / "cucumber-results.json"),
     "--format", "summary:" + str(artifacts / "summary.txt"),
 ]
 tags = os.environ.get("ALKILN_TAG_EXPRESSION", "").strip()

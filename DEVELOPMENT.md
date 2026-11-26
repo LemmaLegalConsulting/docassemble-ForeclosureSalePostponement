@@ -60,6 +60,13 @@ The interview package and dependencies are installed while building the server i
 
 The runner uses unique container/network names and binds the demo only to localhost. By default it removes its containers and network after testing; `--keep-server` prints the retained server's name and URL. It does not stop or alter existing Docassemble containers. Raw reports and downloads go to ignored `.alkiln-artifacts/ci/`. Disposable configuration and credentials go to `.alkiln-artifacts/docker/` and are excluded from the CI artifact upload. Source hashes and the exit code are retained in `run-metadata.json`.
 
+Both browser runners explicitly select `tests/cucumber.cjs` and write JSON results as
+`cucumber-results.json`. Cucumber otherwise discovers `cucumber.json` as configuration;
+an empty or truncated report left by an interruption can then prevent startup. The
+explicit configuration also lets reruns tolerate old `cucumber.json` artifacts without
+deleting them. A partial report remains evidence of an incomplete run until a new run
+finishes successfully; use the matching console output, summary, and exit code.
+
 ### Existing installed-server runner
 
 Fixtures: `docassemble/ForeclosureSalePostponement/data/sources/scenarios.feature`.
