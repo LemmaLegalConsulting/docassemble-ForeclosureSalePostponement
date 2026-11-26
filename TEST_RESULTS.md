@@ -1,4 +1,16 @@
-# Verified local test baseline
+# Verification results
+
+## Merged technical fixes and GitHub verification on November 25 2026
+
+PRs [#5](https://github.com/LemmaLegalConsulting/docassemble-ForeclosureSalePostponement/pull/5), [#3](https://github.com/LemmaLegalConsulting/docassemble-ForeclosureSalePostponement/pull/3), and [#6](https://github.com/LemmaLegalConsulting/docassemble-ForeclosureSalePostponement/pull/6) are merged. The PR #6 head `062b87d822a64eaec0ed8f45a4208b0b294752d6` passed all three GitHub checks: push validation, PR validation, and E2E.
+
+- [GitHub E2E run](https://github.com/LemmaLegalConsulting/docassemble-ForeclosureSalePostponement/actions/runs/45703421108): **17 scenarios and 97 steps passed**, including actual PDF downloads and assertions.
+- [GitHub PR validation run](https://github.com/LemmaLegalConsulting/docassemble-ForeclosureSalePostponement/actions/runs/45703420892): **all five unit tests passed**, with **0 static errors, 0 warnings, and 4 informational findings**.
+- [GitHub push validation run](https://github.com/LemmaLegalConsulting/docassemble-ForeclosureSalePostponement/actions/runs/45703375772): passed.
+
+Local Docker verification also reproduced the pre-fix empty-JSON failure, passed the full suite, repeated a successful run, and killed an active Chromium run with SIGKILL (exit 137), preserving its actual zero-byte report. Recovery with that output and an empty legacy report passed; recovery with truncated legacy and current reports also passed. Each targeted successful browser rerun completed one scenario and eight steps, including a PDF download/assertions. Legacy report bytes remained unchanged. The installed-server runner's repository-relative configuration and support steps passed a Docker dry-run; its separate host credential setup was not exercised.
+
+Raw interruption/recovery evidence remains under ignored `env/alkiln-reruns/2026-11-25/`. The local counsel packet remains under ignored `env/counsel-review/2026-11-25/`; its nine decision items and nineteen proposed cases remain open for substantive review. These passes do not verify every edit/resume path, actual recording/delivery, legal approval, complete dependency compatibility, or comprehensive accessibility. See the completed and pending checkboxes in [IMPROVEMENTS.md](IMPROVEMENTS.md).
 
 ## Docker verification on November 24 2026
 
@@ -8,7 +20,7 @@ All **5 unit tests passed** against the interview server's runtime, in a clean L
 
 The pinned static checker reports **0 errors, 0 warnings, and 4 informational findings** over the application and tests. A downloaded two-page affidavit was rendered and visually inspected; it retains the recording space, signing blanks, and owner/preparer data, with no nonblack RGB operators in either page.
 
-PR #3's last remote E2E run failed during its worker-restart/readiness step before Cucumber ran. The separate validation job failed importing PyYAML. The replacement Docker entrypoint maintained in PR #3 installs the interview package before starting any web worker, preloads the required BirthDate datatype module, and waits for `/health_check?ready=1`. PR #3 uses that entrypoint locally and in its `.github/workflows/alkiln.yml`; the technical-fixes PR keeps the dependency, formatting, and unit-test foundation separate. Local passes do not mean the old GitHub run has become green; the updated branch must be pushed and its workflows run before remote acceptance.
+At this November 24 snapshot, PR #3's earlier remote E2E run had failed during worker-restart/readiness before Cucumber ran, and validation had failed importing PyYAML. Those historical failures were subsequently addressed by PRs #3 and #5. The merged Docker entrypoint installs the interview package before starting web workers, preloads the BirthDate datatype module, and waits for `/health_check?ready=1`. The November 25 GitHub results above supersede the earlier pending-remote-acceptance status.
 
 The audit remains under ignored `env/`. Substantive release questions remain tracked in [FORM_SOURCES.md](FORM_SOURCES.md) and [IMPROVEMENTS.md](IMPROVEMENTS.md). These tests establish technical behavior, not legal approval or production readiness.
 
